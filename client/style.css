@@ -47,10 +47,12 @@ body {
 .wrapper {
   width: 100%;
   padding: 15px;
+  text-align: right;
 }
 
 .ai {
   background: #40414F;
+  text-align: left !important;
 }
 
 .chat {
