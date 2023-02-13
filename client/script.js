@@ -91,7 +91,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   const data = new FormData(form);
-  console.log(data.get('prompt'))
+  if(data.get('prompt') == "") {return false;}
   // user's chatstripe
   chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
 form.reset();
