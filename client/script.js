@@ -100,8 +100,8 @@ form.reset();
 const uniqueId = generateUniqueID()
   chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
   setTimeout(()=>{
-    console.log('上移')
-    chatContainer.scollTop = chatContainer.scrollHeight;
+    document.getElementById('chat_container').scrollTop = chatContainer.scrollHeight;
+    //chatContainer.scollTop = chatContainer.scrollHeight;
   },200)
 
   const messageDiv = document.getElementById(uniqueId);
