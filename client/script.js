@@ -99,8 +99,10 @@ form.reset();
 // bot's chat stripe
 const uniqueId = generateUniqueID()
   chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
-  console.log('cotainerHeight',chatContainer.scrollHeight)
-  chatContainer.scollTop = chatContainer.scrollHeight;
+  setTimeout(()=>{
+    console.log('上移')
+    chatContainer.scollTop = chatContainer.scrollHeight;
+  },200)
 
   const messageDiv = document.getElementById(uniqueId);
 
