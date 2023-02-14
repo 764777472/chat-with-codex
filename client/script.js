@@ -6,6 +6,27 @@ const chatContainer = document.querySelector('#chat_container');
 
 let loadInterval;
 
+const maxlen = 200;
+var his_log = localStorage.getItem('logs') ? JSON.parse(localStorage.getItem('logs')) : [];
+var log_itm_df = {id: "", user: "",bot: ""},log_itm = log_itm_df;
+
+const loadLog = ()=> {
+	// 展示记录
+	for(var key in his_log) {
+		chatContainer.innerHTML += chatStripe(false, his_log[key]['user'], his_log[key]['id']);
+		chatContainer.innerHTML += chatStripe(true, his_log[key]['bot'], his_log[key]['id']);
+	}
+	document.getElementById('addBtn').remove();
+	setTimeout(()=>{
+	  document.getElementById('chat_container').scrollTop = chatContainer.scrollHeight;
+	},200)
+}
+if(his_log.length > 0) {
+	var btn = `<button id="addBtn" class="btns">显示记录</button>`;
+	chatContainer.innerHTML += btn;
+	document.getElementById('addBtn').onclick = loadLog;
+}
+
 
 function loader(element) {
   element.textContent = '';
@@ -89,21 +110,29 @@ function chatStripe(isAi, value, uniqueId) {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+	
+	document.getElementById('addBtn').remove();
 
   const data = new FormData(form);
   if(data.get('prompt') == "") {return false;}
+	
   // user's chatstripe
   chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
-form.reset();
+	form.reset();
 
 // bot's chat stripe
-const uniqueId = generateUniqueID()
+	const uniqueId = generateUniqueID()
   chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
   setTimeout(()=>{
     document.getElementById('chat_container').scrollTop = chatContainer.scrollHeight;
     //chatContainer.scollTop = chatContainer.scrollHeight;
   },200)
-
+	
+	// save log, max 200 lim
+	his_log = localStorage.getItem('logs') ? JSON.parse(localStorage.getItem('logs')) : [];
+	log_itm['user'] = data.get('prompt');
+	log_itm['id'] = uniqueId;
+	
   const messageDiv = document.getElementById(uniqueId);
 
   loader(messageDiv);
@@ -127,8 +156,18 @@ const uniqueId = generateUniqueID()
     const data = await response.json();
     const parsedData = data.bot.trim();
 
-
+		
     typeText(messageDiv, parsedData);
+		
+		
+		log_itm['bot'] = parsedData;
+		// add to local
+		if(his_log.length >= maxlen) {
+			his_log.shift();
+		}
+		his_log.push(log_itm);
+		localStorage.setItem('logs',JSON.stringify(his_log));
+		log_itm = log_itm_df;
   } else {
     const err = await response.text();
 
