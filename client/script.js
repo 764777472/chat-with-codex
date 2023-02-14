@@ -16,15 +16,16 @@ const loadLog = ()=> {
 		chatContainer.innerHTML += chatStripe(false, his_log[key]['user'], his_log[key]['id']);
 		chatContainer.innerHTML += chatStripe(true, his_log[key]['bot'], his_log[key]['id']);
 	}
-	document.getElementById('addBtn').remove();
+	// document.getElementById('addBtn').remove();
 	setTimeout(()=>{
 	  document.getElementById('chat_container').scrollTop = chatContainer.scrollHeight;
 	},200)
 }
 if(his_log.length > 0) {
-	var btn = `<button id="addBtn" class="btns">显示记录</button>`;
-	chatContainer.innerHTML += btn;
-	document.getElementById('addBtn').onclick = loadLog;
+	loadLog();
+	// var btn = `<button id="addBtn" class="btns">显示记录</button>`;
+	// chatContainer.innerHTML += btn;
+	// document.getElementById('addBtn').onclick = loadLog;
 }
 
 
@@ -111,7 +112,7 @@ function chatStripe(isAi, value, uniqueId) {
 const handleSubmit = async (e) => {
   e.preventDefault();
 	
-	document.getElementById('addBtn') && document.getElementById('addBtn').remove();
+	// document.getElementById('addBtn') && document.getElementById('addBtn').remove();
 
   const data = new FormData(form);
   if(data.get('prompt') == "") {return false;}
