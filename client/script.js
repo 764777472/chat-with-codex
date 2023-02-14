@@ -111,7 +111,7 @@ function chatStripe(isAi, value, uniqueId) {
 const handleSubmit = async (e) => {
   e.preventDefault();
 	
-	document.getElementById('addBtn').remove();
+	document.getElementById('addBtn') && document.getElementById('addBtn').remove();
 
   const data = new FormData(form);
   if(data.get('prompt') == "") {return false;}
