@@ -9,7 +9,7 @@ let loadInterval;
 const maxlen = 200;
 var his_log = localStorage.getItem('logs') ? JSON.parse(localStorage.getItem('logs')) : [];
 var log_itm_df = {id: "", user: "",bot: ""},log_itm = log_itm_df;
-
+/*
 const loadLog = ()=> {
 	// 展示记录
 	for(var key in his_log) {
@@ -21,13 +21,14 @@ const loadLog = ()=> {
 	  document.getElementById('chat_container').scrollTop = chatContainer.scrollHeight;
 	},200)
 }
+
 if(his_log.length > 0) {
 	loadLog();
 	// var btn = `<button id="addBtn" class="btns">显示记录</button>`;
 	// chatContainer.innerHTML += btn;
 	// document.getElementById('addBtn').onclick = loadLog;
 }
-
+*/
 
 function loader(element) {
   element.textContent = '';
